@@ -62,6 +62,14 @@
   });
   $$('#navLinks a').forEach(a => a.addEventListener('click', () => { links.classList.remove('is-open'); burger.setAttribute('aria-expanded', false); }));
 
+  // Logo / brand: always scroll back to the very top
+  $$('a[href="#top"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    links.classList.remove('is-open'); burger.setAttribute('aria-expanded', false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', location.pathname);
+  }));
+
   /* ---------------- socials & contact ---------------- */
   const socials = CFG.socials || {};
   $$('[data-social]').forEach(a => { const u = socials[a.dataset.social]; if (u) a.href = u; else a.remove(); });
